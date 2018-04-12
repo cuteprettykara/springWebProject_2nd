@@ -13,10 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
-//@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/*.xml"})
-//@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/*.xml")
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration("classpath:applicationContext.xml")
 public class DataSourceTest {
 	@Inject
 	private DataSource ds;

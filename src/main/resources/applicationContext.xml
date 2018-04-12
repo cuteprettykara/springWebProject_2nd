@@ -16,6 +16,10 @@
 	
 	<context:property-placeholder location="classpath*:application-properties.xml"/>
 	
+	<context:component-scan base-package="org.zerock.persistence">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="${database.driverClassName}"
@@ -27,5 +31,11 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
 		p:dataSource-ref="dataSource"
 		p:configLocation="classpath:mybatis-config.xml"
+		p:mapperLocations="classpath:mappers/*Mapper.xml"
 	/>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+		
 </beans>

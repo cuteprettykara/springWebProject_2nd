@@ -12,7 +12,10 @@
 	
 	<!-- Application Loggers -->
 	<logger name="org.zerock.web">
-		<level value="info" />
+		<level value="debug" />
+	</logger>
+	<logger name="org.zerock.persistence">
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

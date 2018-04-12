@@ -1,7 +1,5 @@
 package org.zerock.web;
 
-import static org.junit.Assert.fail;
-
 import javax.inject.Inject;
 
 import org.junit.Before;
@@ -20,7 +18,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration(locations= {
+		"classpath:applicationContext.xml",
+		"file:webapp/WEB-INF/zerock-servlet.xml"
+})
 public class SampleControllerTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SampleControllerTest.class);
