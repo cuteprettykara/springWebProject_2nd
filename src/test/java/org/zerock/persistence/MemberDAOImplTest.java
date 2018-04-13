@@ -43,10 +43,10 @@ public class MemberDAOImplTest {
 		logger.info("### database successfully initialized!");
 	}
 	
-	@Test
+/*	@Test
 	public void testGetTime() {
 		logger.info("### dao.getTime() : {}", memberDao.getTime());
-	}
+	}*/
 
 	@Test
 	public void testInsertMember() {
@@ -59,7 +59,7 @@ public class MemberDAOImplTest {
 		assertEquals(vo, dbUser);
 	}
 	
-	@Test
+/*	@Test
 	public void testReadMember() {
 		MemberVO dbUser = memberDao.readMember("prettykara");
 		
@@ -72,5 +72,5 @@ public class MemberDAOImplTest {
 		
 		assertNotNull(dbUser);
 	}
-
+*/
 }
