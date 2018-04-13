@@ -1,18 +1,29 @@
 package org.zerock.persistence;
 
-import javax.inject.Inject;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.persistence.MemberDAO;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.web.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
+@Transactional(transactionManager="transactionManager")
+@Rollback
 public class MemberDAOImplTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberDAOImplTest.class);
@@ -20,16 +31,46 @@ public class MemberDAOImplTest {
 	@Inject
 	MemberDAO memberDao;
 	
+	@Inject
+	private DataSource dataSource;
+	
+	@Before
+	public void initialize() {
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+		populator.addScript(new ClassPathResource("zerock.sql"));
+		DatabasePopulatorUtils.execute(populator, dataSource);
+		
+		logger.info("### database successfully initialized!");
+	}
+	
 	@Test
 	public void testGetTime() {
-		logger.info("dao.getTime() : {}", memberDao.getTime());
+		logger.info("### dao.getTime() : {}", memberDao.getTime());
 	}
 
 	@Test
 	public void testInsertMember() {
-		MemberVO vo = new MemberVO("user00", "user00", "USER00", "user00@aaa.com");
+		MemberVO vo = new MemberVO("prettykara2", "2222", "남상범2", "kara@gmail.com");
 		
 		memberDao.insertMember(vo);
+		
+		MemberVO dbUser = memberDao.readMember(vo.getUserid());
+		
+		assertEquals(vo, dbUser);
+	}
+	
+	@Test
+	public void testReadMember() {
+		MemberVO dbUser = memberDao.readMember("prettykara");
+		
+		assertNotNull(dbUser);
+	}
+	
+	@Test
+	public void testReaddWithPW() {
+		MemberVO dbUser = memberDao.readWithPW("prettykara", "1111");
+		
+		assertNotNull(dbUser);
 	}
 
 }

@@ -13,4 +13,17 @@
 		  into tbl_member (userid, userpw, username, email)
 		values (#{userid}, #{userpw}, #{username}, #{email})	   
 	</insert>
+	
+	<select id="selectMember" resultType="MemberVO">
+		select *
+		  from tbl_member
+		 where userid=#{userid} 
+	</select>
+	
+	<select id="readWithPW" resultType="MemberVO">
+		select *
+		  from tbl_member
+		 where userid=#{userid} 
+		   and userpw=#{userpw}
+	</select>
 </mapper>
