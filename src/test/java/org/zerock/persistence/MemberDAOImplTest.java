@@ -1,15 +1,19 @@
 package org.zerock.persistence;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,7 @@ import org.zerock.web.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
+@Transactional
 public class MemberDAOImplTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberDAOImplTest.class);
@@ -27,19 +32,19 @@ public class MemberDAOImplTest {
 	@Inject
 	private DataSource dataSource;
 	
-/*	@Before
+	@Before
 	public void initialize() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(new ClassPathResource("zerock.sql"));
 		DatabasePopulatorUtils.execute(populator, dataSource);
 		
 		logger.info("### database successfully initialized!");
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void testGetTime() {
 		logger.info("### dao.getTime() : {}", memberDao.getTime());
-	}*/
+	}
 
 	@Test
 	public void testInsertMember() {
@@ -52,7 +57,7 @@ public class MemberDAOImplTest {
 		assertEquals(vo, dbUser);
 	}
 	
-/*	@Test
+	@Test
 	public void testReadMember() {
 		MemberVO dbUser = memberDao.readMember("prettykara");
 		
@@ -65,5 +70,5 @@ public class MemberDAOImplTest {
 		
 		assertNotNull(dbUser);
 	}
-*/
+
 }
