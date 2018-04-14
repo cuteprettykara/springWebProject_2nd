@@ -12,3 +12,16 @@ create table tbl_member (
     
     primary key(userid)
 );
+
+[Part 2]
+create table tbl_board (
+	bno INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,
+    content TEXT NULL,
+    writer VARCHAR(50) NOT NULL,
+    regdate TIMESTAMP NOT NULL DEFAULT now(),
+    updatedate TIMESTAMP NOT NULL DEFAULT now(),
+    viencnt INT DEFAULT 0,
+    
+    primary key(bno)
+);

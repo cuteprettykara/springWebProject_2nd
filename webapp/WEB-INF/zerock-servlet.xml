@@ -11,6 +11,8 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<resources location="/resources/" mapping="/resources/**" />
 
 	<context:component-scan base-package="org.zerock.web">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
