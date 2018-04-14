@@ -4,20 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.web.domain.MemberVO;
+import org.zerock.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
@@ -29,7 +24,7 @@ public class MemberDAOImplTest {
 	@Inject
 	MemberDAO memberDao;
 	
-	@Inject
+/*	@Inject
 	private DataSource dataSource;
 	
 	@Before
@@ -39,7 +34,7 @@ public class MemberDAOImplTest {
 		DatabasePopulatorUtils.execute(populator, dataSource);
 		
 		logger.info("### database successfully initialized!");
-	}
+	}*/
 	
 	@Test
 	public void testGetTime() {

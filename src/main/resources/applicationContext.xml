@@ -18,6 +18,8 @@
 	
 	<context:property-placeholder location="classpath*:application-properties.xml"/>
 	
+	<tx:annotation-driven/>
+
 	<context:component-scan base-package="org.zerock.persistence">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
@@ -39,11 +41,9 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource"
 	/>
-	
-	<tx:annotation-driven/>
 		
 </beans>
