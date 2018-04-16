@@ -162,6 +162,24 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>5.0.7</version>
+                <configuration>
+                	<driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://127.0.0.1:3306/book_ex</url>
+                    <user>zerock</user>
+                    <password>zerock</password>
+                </configuration>
+                 <dependencies>
+                    <dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.46</version>
+					</dependency>
+                </dependencies>
+            </plugin>
 		</plugins>
 	</build>
 </project>
