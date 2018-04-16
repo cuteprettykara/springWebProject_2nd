@@ -1,9 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
-<%@ include file="include/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<%@ include file="include/header.jsp"%>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+	<%@ include file="include/navigation.jsp"%>
 
 <!-- Main content -->
 <section class="content">
@@ -45,4 +51,7 @@
 <!-- /.content -->
 
 <%@ include file="include/footer.jsp"%>
+
+</body>
+</html>
 

@@ -17,6 +17,14 @@
 	<context:component-scan base-package="org.zerock.web">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+	
+	<context:component-scan base-package="org.zerock.controller">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<context:component-scan base-package="org.zerock.service">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Serivce"/>
+	</context:component-scan>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
