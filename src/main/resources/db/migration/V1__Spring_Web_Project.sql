@@ -19,7 +19,7 @@ create table tbl_board (
     writer VARCHAR(50) NOT NULL,
     regdate TIMESTAMP NOT NULL DEFAULT now(),
     updatedate TIMESTAMP NOT NULL DEFAULT now(),
-    viencnt INT DEFAULT 0,
+    viewcnt INT DEFAULT 0,
     
     primary key(bno)
 );
