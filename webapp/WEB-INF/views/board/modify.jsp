@@ -6,6 +6,24 @@
 <html>
 <head>
 <%@ include file="../include/header.jsp"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		
+		$("#save").on("click", function() {
+//  		formObj.attr("action", "/board/modify");
+// 			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	
+		
+		$("#cancel").on("click", function() {
+			self.location="/board/listAll";
+		});
+	});
+</script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -24,25 +42,29 @@
 				
 				
 				
-<form role="form" method="post">				
+<form role="form" method="post">	
+	<input type="hidden" name="bno" value="${boardVO.bno}" />	
+
+			
 	<div class="box-body">
 		<div class="form-group">
 			<label for="exampleInputEmail1">Title</label> 
-			<input type="text" name='title' class="form-control" placeholder="Enter Title">
+			<input type="text" name='title' class="form-control" placeholder="Enter Title" value="${boardVO.title}">
 		</div>
 		<div class="form-group">
 			<label for="exampleInputPassword1">Content</label>
-			<textarea class="form-control" name="content" rows="3" placeholder="Enter ..."></textarea>
+			<textarea class="form-control" name="content" rows="3" placeholder="Enter ...">${boardVO.content}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Writer</label> 
-			<input type="text" name="writer" class="form-control" placeholder="Enter Writer">
+			<input type="text" name="writer" class="form-control" placeholder="Enter Writer" readonly="readonly" value="${boardVO.writer}">
 		</div>
 	</div>
 	<!-- /.box-body -->
-	
+
 	<div class="box-footer">
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary" id="save">Save</button>
+		<button type="submit" class="btn btn-warning" id="cancel">Cancel</button>
 	</div>
 	<!-- /.box-footer-->
 </form>
