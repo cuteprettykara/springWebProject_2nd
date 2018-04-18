@@ -10,7 +10,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		console.log(formObj);
 		
 		$("#modify").on("click", function() {
 			formObj.attr("action", "/board/modify");
@@ -67,9 +66,9 @@
 	<!-- /.box-body -->
 	
 	<div class="box-footer">
-		<button type="submit" class="btn btn-warning" id="modify">Modify</button>
-		<button type="submit" class="btn btn-danger" id="remove">REMOVE</button>
-		<button type="submit" class="btn btn-primary" id="listAll">LIST ALL</button>
+		<button type="button" class="btn btn-warning" id="modify">Modify</button>
+		<button type="button" class="btn btn-danger" id="remove">REMOVE</button>
+		<button type="button" class="btn btn-primary" id="listAll">LIST ALL</button>
 	</div>
 	<!-- /.box-footer-->
 

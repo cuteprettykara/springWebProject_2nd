@@ -10,17 +10,15 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		console.log(formObj);
 		
 		$("#save").on("click", function() {
-//  		formObj.attr("action", "/board/modify");
-// 			formObj.attr("method", "post");
+  			formObj.attr("action", "/board/modify");
+ 			formObj.attr("method", "post");
 			formObj.submit();
 		});
 	
-		
 		$("#cancel").on("click", function() {
-			self.location="/board/listAll";
+			self.location = "/board/listAll";
 		});
 	});
 </script>
@@ -63,8 +61,8 @@
 	<!-- /.box-body -->
 
 	<div class="box-footer">
-		<button type="submit" class="btn btn-primary" id="save">Save</button>
-		<button type="submit" class="btn btn-warning" id="cancel">Cancel</button>
+		<button type="button" class="btn btn-primary" id="save">Save</button>
+		<button type="button" class="btn btn-warning" id="cancel">Cancel</button>
 	</div>
 	<!-- /.box-footer-->
 </form>
