@@ -3,6 +3,8 @@ package org.zerock.persistence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
@@ -70,6 +73,28 @@ public class BoardDAOImplTest {
 	@Test
 	public void testListAll() {
 		boardDao.listAll();
+	}
+	
+	@Test
+	public void testListPage() {
+		int page = 3;
+		List<BoardVO> list = boardDao.listPage(page);
+		for (BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
+		}
+	}
+	
+	@Test
+	public void testListCriteria() {
+		
+		Criteria cri = new Criteria();
+		cri.setPage(3);
+		cri.setPerPageNum(20);
+		
+		List<BoardVO> list = boardDao.listCriteria(cri);
+		for (BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
+		}
 	}
 
 }

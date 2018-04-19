@@ -3,6 +3,7 @@ package org.zerock.persistence;
 import java.util.List;
 
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 public interface BoardDAO {
 	
@@ -15,4 +16,8 @@ public interface BoardDAO {
 	public void delete(Integer bno);
 	
 	public List<BoardVO> listAll();
+	
+	public List<BoardVO> listPage(int page);
+
+	public List<BoardVO> listCriteria(Criteria cri);
 }
