@@ -56,4 +56,12 @@
 	     limit #{pageStart}, #{perPageNum}
 	]]>
 	</select>
+	
+	<select id="getTotalCount" resultType="int">
+	<![CDATA[
+		select count(*)
+		  from tbl_board
+	     where bno > 0
+	]]>
+	</select>
 </mapper>

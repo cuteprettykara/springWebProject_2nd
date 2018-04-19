@@ -56,4 +56,9 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList(namespace + ".listCriteria", cri);
 	}
 
+	@Override
+	public int getTotalCount() {
+		return sqlSession.selectOne(namespace + ".getTotalCount");
+	}
+
 }
