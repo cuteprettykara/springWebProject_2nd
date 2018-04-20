@@ -13,7 +13,18 @@
 		var result ='${msg}';
 		if (result == 'success') {
 			alert('처리가 완료되었습니다.');
-		}			
+		}
+		
+		$(".pagination li a").on("click", function(e) {
+			e.preventDefault();
+			
+			var targetPage = $(this).attr("href");
+			var jobForm = $("#jobForm");
+			
+			jobForm.find("[name='page']").val(targetPage);
+			jobForm.attr("action", "/board/listPage").attr("method", "get");
+			jobForm.submit();
+		})
 	});
 </script>
 </head>
@@ -60,17 +71,17 @@
 		<div class="text-center">
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
-					<li><a href="listPage${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
+					<li><a href="${pageMaker.startPage-1}">&laquo;</a></li>
 				</c:if>
 				
 				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 					<li <c:out value="${pageMaker.cri.page == idx ? 'class=active' : '' }"/>>
-						<a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a>
+						<a href="${idx}">${idx}</a>
 					</li>
 				</c:forEach>
 				
 				<c:if test="${pageMaker.next}">
-					<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">&raquo;</a></li>
+					<li><a href="${pageMaker.endPage + 1}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -88,6 +99,11 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
+
+<form id="jobForm">
+	<input type='hidden' name="page">
+  	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
+</form>
 
 <%@ include file="../include/footer.jsp"%>
 
