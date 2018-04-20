@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageMaker;
@@ -64,38 +67,46 @@ public class BoardController {
 		logger.info("pageMaker : {}", pageMaker );
 	}
 	
-	@RequestMapping(value="read", method=RequestMethod.GET)
-	public void readForm(@RequestParam Integer bno, Model model) {
+	@RequestMapping(value="readPage", method=RequestMethod.GET)
+	public void readForm(@RequestParam Integer bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		logger.info("read Form.......");
 		
 		model.addAttribute(service.read(bno));
 	}
 	
 	@RequestMapping(value="remove", method=RequestMethod.POST)
-	public String remove(Integer bno, RedirectAttributes rttr) {
-		logger.info("remove .......");
+	public String remove(Integer bno, RedirectAttributes rttr, Criteria cri) {
+		logger.info("remove ....... " + cri);
 		
 		service.remove(bno);
+
 		rttr.addFlashAttribute("msg", "success");
 		
-		return "redirect:/board/listAll";
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		
+		return "redirect:/board/listPage";
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.GET)
-	public void modifyForm(@RequestParam Integer bno, Model model) {
+	@RequestMapping(value="modifyPage", method=RequestMethod.GET)
+	public void modifyForm(@RequestParam Integer bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		logger.info("modify Form.......");
 		
 		model.addAttribute(service.read(bno));
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.POST)
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	@RequestMapping(value="modifyPage", method=RequestMethod.POST)
+	public String modify(BoardVO board, RedirectAttributes rttr, Criteria cri) {
 		logger.info("modify .......");
 		
 		service.modify(board);
+		
 		rttr.addFlashAttribute("msg", "success");
 		
-		return "redirect:/board/listAll";
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		
+		return "redirect:/board/listPage";
 	}
 	
 	
