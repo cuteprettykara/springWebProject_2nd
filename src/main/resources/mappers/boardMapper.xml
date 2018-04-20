@@ -64,4 +64,60 @@
 	     where bno > 0
 	]]>
 	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="searchType == 't'.toString()">
+			   and title like CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="searchType == 'c'.toString()">
+			   and content like CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="searchType == 'w'.toString()">
+			   and writer like CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="searchType == 'tc'.toString()">
+			   and (title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
+			</when> 
+			<when test="searchType == 'cw'.toString()">
+			   and (content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
+			</when>
+			<when test="searchType == 'tcw'.toString()">
+			   and (
+			   			title like CONCAT('%', #{keyword}, '%') OR 
+			   			content like CONCAT('%', #{keyword}, '%') OR
+			   			writer like CONCAT('%', #{keyword}, '%')
+			   		)
+			</when>
+			<otherwise>
+				and 1 = 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="listSearch" resultType="BoardVO">
+	<![CDATA[
+		select * 
+		  from tbl_board
+	     where bno > 0
+	]]>
+	
+		<include refid="search" />
+	
+	<![CDATA[
+	     order by bno desc, regdate desc	
+	     limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<select id="getTotalSearchCount" resultType="int">
+	<![CDATA[
+		select count(*)
+		  from tbl_board
+	     where bno > 0
+	]]>
+	
+		<include refid="search" />
+	
+	</select>
 </mapper>

@@ -103,8 +103,6 @@ public class PageMaker {
 				.queryParam("searchType", ((SearchCriteria)cri).getSearchType())
 				.queryParam("keyword", ((SearchCriteria)cri).getKeyword())
 				.build();
-		System.out.println("toString() : " + uriComponents.toString());
-		System.out.println("toUriString() : " + uriComponents.toUriString());
 		
 		return uriComponents.toUriString();
 	}

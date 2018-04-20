@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.SearchCriteria;
 
 public interface BoardDAO {
 	
@@ -21,6 +22,10 @@ public interface BoardDAO {
 
 	public List<BoardVO> listCriteria(Criteria cri);
 	
+	public List<BoardVO> listSearch(SearchCriteria cri);
+	
 	public int getTotalCount();
+	
+	public int getTotalSearchCount(SearchCriteria cri);
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.SearchCriteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
@@ -97,6 +98,25 @@ public class BoardDAOImplTest {
 		for (BoardVO boardVO : list) {
 			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
 		}
+	}
+	
+	@Test
+	public void testListSearch() {
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setPage(3);
+		cri.setPerPageNum(20);
+		cri.setSearchType("t");
+		cri.setKeyword("한글");
+		
+		logger.info("=======================================================");
+		List<BoardVO> list = boardDao.listSearch(cri);
+		for (BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
+		}
+		logger.info("=======================================================");
+		
+		logger.info("count : {}", boardDao.getTotalSearchCount(cri));
 	}
 
 	@Test

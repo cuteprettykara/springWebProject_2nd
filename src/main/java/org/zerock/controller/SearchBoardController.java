@@ -41,15 +41,15 @@ public class SearchBoardController {
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public void listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) {
-		logger.info(cri.toString());
-		
-		model.addAttribute("list", service.listCriteria(cri));
+		model.addAttribute("list", service.listSearch(cri));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.getTotalCount());
+		pageMaker.setTotalCount(service.getTotalSearchCount(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);
+		
+		logger.info(pageMaker.toString());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.SearchCriteria;
 
 public interface BoardService {
 	public void regist(BoardVO board);
@@ -19,4 +20,8 @@ public interface BoardService {
 	public List<BoardVO> listCriteria(Criteria cri);
 
 	public int getTotalCount();
+	
+	public List<BoardVO> listSearch(SearchCriteria cri);
+
+	public int getTotalSearchCount(SearchCriteria cri);
 }
