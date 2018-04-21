@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 
 public interface ReplyService {
@@ -12,5 +13,9 @@ public interface ReplyService {
 	public void modifyReply(ReplyVO vo);
 	
 	public void removeReply(Integer rno);
+	
+	public List<ReplyVO> listReplyCriteria(Integer bno, Criteria cri);
+
+	public int getTotalReplyCount();
 	
 }

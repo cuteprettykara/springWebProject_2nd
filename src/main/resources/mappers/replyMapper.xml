@@ -28,4 +28,22 @@
 	<delete id="delete">
 		delete from tbl_reply where rno=#{rno}
 	</delete>
+	
+	<select id="listCriteria" resultType="ReplyVO">
+	<![CDATA[
+		select * 
+		  from tbl_reply
+	     where bno = ${bno}
+	     order by rno desc
+	     limit #{cri.pageStart}, #{cri.perPageNum}
+	]]>
+	</select>
+	
+	<select id="getTotalReplyCount" resultType="int">
+	<![CDATA[
+		select count(*)
+		  from tbl_reply
+	     where bno = #{bno}
+	]]>
+	</select>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 import org.zerock.persistence.ReplyDAO;
 
@@ -32,5 +33,15 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void removeReply(Integer rno) {
 		replyDao.delete(rno);
+	}
+
+	@Override
+	public List<ReplyVO> listReplyCriteria(Integer bno, Criteria cri) {
+		return replyDao.listCriteria(bno, cri);
+	}
+
+	@Override
+	public int getTotalReplyCount() {
+		return replyDao.getTotalReplyCount();
 	}
 }
