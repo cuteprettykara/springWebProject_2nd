@@ -18,7 +18,7 @@
 				$(data).each(function() {
 					str += "<li data-rno='" + this.rno  + "' class='replyLi'>"
 						+  this.rno + ":" + this.replytext 
-						+ "</li>";
+						+ "<button>MOD</button></li>";
 				})
 				
 				$("#replies").html(str);
@@ -26,6 +26,8 @@
 		}
 		
 		$(document).ready(function() {
+			getAllList();
+			
  			$("#replyAddBtn").on("click", function() {
 				var replyer = $("#newReplyWriter").val();
 				var replytext = $("#newReplyText").val();
@@ -50,7 +52,7 @@
 						}
 					}
 				})
-			})
+			});
 /* 			
 			$("#replyAddBtn").on("click", function() {
 				var replyer = $("#newReplyWriter").val();
@@ -67,9 +69,85 @@
 				);
 			}); */
 			
-			getAllList();
+			$("#replies").on("click", ".replyLi button",function() {
+				var reply = $(this).parent();
+				
+				var rno = reply.attr("data-rno");
+				var replytext = reply.text();
+				
+				$(".modal-title").html(rno);
+				$("#replytext").val(replytext);
+				$("#modDiv").show("slow");
+			});
+			
+			$("#closeBtn").on("click", function() {
+				$("#modDiv").hide("slow");
+			});
+			
+			$("#replyDelBtn").on("click", function() {
+				var rno = $(".modal-title").html();
+				
+				$.ajax({
+					type : 'delete',
+					url : '/replies/' + rno,
+					headers : {
+						"Content-type" : "application/json",
+						"X-HTTP-Method-Override" : "DELETE"
+					},
+					dataType : 'text',
+					success : function(result) {
+						if (result == 'SUCCESS') {
+							alert('삭제되었습니다.');
+							$("#modDiv").hide("slow");
+							getAllList();
+						}
+					}
+				})
+			});
+			
+			$("#replyModBtn").on("click", function() {
+				var rno = $(".modal-title").html();
+				var replytext = $("#replytext").val();
+				
+				$.ajax({
+					type : 'patch',
+					url : '/replies/' + rno,
+					headers : {
+						"Content-type" : "application/json",
+						"X-HTTP-Method-Overrid" : "PATCH"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						replytext : replytext
+					}),
+					success : function(result) {
+						if (result == 'SUCCESS') {
+							alert('수정되었습니다.');
+							$("#modDiv").hide("slow");
+							getAllList();
+// 							getPageList();
+						}
+					}
+				})
+			});
+			
 		});
 	</script>
+	
+	<style>
+		#modDiv {
+			width: 300px;
+			height: 100px;
+			background-color: gray;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -150px;
+			padding: 10px;
+			z-index: 1000;
+		}
+	</style>
 </head>
 <body>
 	<h2>Ajax Test page</h2>
@@ -87,5 +165,17 @@
 	<ul id="replies">
 	
 	</ul>
+	
+	<div id='modDiv' style="display: none;">
+		<div class='modal-title'></div>
+		<div>
+			<input type='text' id='replytext'>
+		</div>
+		<div>
+			<button type="button" id="replyModBtn">Modify</button>
+			<button type="button" id="replyDelBtn">DELETE</button>
+			<button type="button" id='closeBtn'>Close</button>
+		</div>
+	</div>
 </body>
 </html>
