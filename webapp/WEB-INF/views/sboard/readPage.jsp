@@ -6,9 +6,69 @@
 <html>
 <head>
 <%@ include file="../include/header.jsp"%>
+
+<!-- jQuery 3 -->
+<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- handlebars -->
+<script src="/resources/handlebars/handlebars-v4.0.11.js"></script>
+
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+	<li class="replyLi" data-rno={{rno}}>
+		<i class="fa fa-comments bg-blue"></i>
+		<div class="timeline-item">
+  			<span class="time">
+    			<i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
+  			</span>
+			<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
+			<div class="timeline-body">{{replytext}} </div>
+			<div class="timeline-footer">
+     			<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+    		</div>
+		</div>			
+	</li>
+{{/each}}
+</script>
 	
 <script type="text/javascript">
+	function getPage(pageInfo) {
+		$.getJSON(pageInfo, function(data) {
+			printData(data.list, $("#repliesDiv"), $('#template'));
+			printPaging(data.pageMaker, $(".pagination"));
+	//			$("#modifyModal").modal('hide');
+		});
+	}
+	
+	function printData(replyArr, target, templateObject) {
+	
+		var template = Handlebars.compile(templateObject.html());
+	
+		var html = template(replyArr);
+		$(".replyLi").remove();
+		target.after(html);
+	}
+	
+	function printPaging(pageMaker, target) {
+		var str = "";
+		if (pageMaker.prev) {
+			str += "<li><a href='" + (pageMaker.startPage - 1)
+					+ "'> << </a></li>";
+		}
+		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+			str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+		}
+		if (pageMaker.next) {
+			str += "<li><a href='" + (pageMaker.endPage + 1)
+					+ "'> >> </a></li>";
+		}
+		target.html(str);
+	};
+
 	$(document).ready(function() {
+		var bno=${boardVO.bno};
+		var replyPage = 1;
+		
 		var formObj = $("form[role='form']");
 		
 		$("#modify").on("click", function() {
@@ -27,8 +87,63 @@
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
+		
+		$("#repliesDiv").on("click", function() {
+			
+			if ($(".timeline li").length > 1) {
+				return;
+			}
+			
+			getPage("/replies/" + bno + "/1");
+		});
+		
+		$("#replyAddBtn").on("click", function() {
+			var replyerObj = $("#newReplyWriter");
+			var replytextObj = $("#newReplyText");
+
+			var replyer = replyerObj.val();
+			var replytext = replytextObj.val();
+			
+			$.ajax({
+				type : 'post',
+				url : '/replies',
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					bno : bno,
+					replyer : replyer,
+					replytext : replytext
+				}),
+				success : function(result) {
+					if (result == 'SUCCESS') {
+						alert('등록되었습니다.');
+						getPage("/replies/" + bno + "/1");
+						replyerObj.val("");
+						replytextObj.val("");
+					}
+				}
+			})
+		});
+		
+		Handlebars.registerHelper("prettifyDate", function(timeValue) {
+			var dateObj = new Date(timeValue);
+			var year = dateObj.getFullYear();
+			var month = dateObj.getMonth() + 1;
+			var date = dateObj.getDate();
+			return year + "/" + month + "/" + date;
+		});
+		
+		$(".pagination").on("click", "li a", function(event) {
+			event.preventDefault();
+			replyPage = $(this).attr("href");
+			getPage("/replies/" + bno + "/" + replyPage);
+		});
 	});
 </script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

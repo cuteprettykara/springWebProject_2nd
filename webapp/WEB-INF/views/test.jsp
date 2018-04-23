@@ -75,7 +75,7 @@
 					url : '/replies',
 					headers : {
 						"Content-type" : "application/json",
-						"X-HTTP-Method-Overrid" : "POST"
+						"X-HTTP-Method-Override" : "POST"
 					},
 					dataType : 'text',
 					data : JSON.stringify({
@@ -154,7 +154,7 @@
 					url : '/replies/' + rno,
 					headers : {
 						"Content-type" : "application/json",
-						"X-HTTP-Method-Overrid" : "PATCH"
+						"X-HTTP-Method-Override" : "PATCH"
 					},
 					dataType : 'text',
 					data : JSON.stringify({
