@@ -9,7 +9,7 @@
 	<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
 	
 	<script type="text/javascript">
-		var bno = 1;
+		var bno = 3059;
 		var replyPage = 1;
 		
 		function getAllList() {
