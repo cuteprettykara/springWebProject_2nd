@@ -10,6 +10,7 @@
 	
 	<script type="text/javascript">
 		var bno = 1;
+		var replyPage = 1;
 		
 		function getAllList() {
 			$.getJSON("/replies/all/" + bno, function(data) {
@@ -25,8 +26,45 @@
 			})
 		}
 		
+		function getPageList(page) {
+			$.getJSON("/replies/" + bno + "/" + page, function(data) {
+				console.log(data.list.length);
+				
+				var str = "";
+				$(data.list).each(function() {
+					str += "<li data-rno='" + this.rno  + "' class='replyLi'>"
+						+  this.rno + ":" + this.replytext 
+						+ "<button>MOD</button></li>";
+				})
+				
+				$("#replies").html(str);
+				
+				printPaging(data.pageMaker);
+			})
+		}
+		
+		function printPaging(pageMaker){
+			
+			var str = "";
+			
+			if(pageMaker.prev){
+				str += "<li><a href='"+(pageMaker.startPage-1)+"'> << </a></li>";
+			}
+			
+			for(var i=pageMaker.startPage, len = pageMaker.endPage; i <= len; i++){				
+					var strClass= pageMaker.cri.page == i ? 'class=active' : '';
+				  str += "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
+			}
+			
+			if(pageMaker.next){
+				str += "<li><a href='"+(pageMaker.endPage + 1)+"'> >> </a></li>";
+			}
+			$('.pagination').html(str);				
+		}
+		
 		$(document).ready(function() {
-			getAllList();
+			// JSP가 처음 동작하면 1페이지의 댓글을 가져오도록 한다.
+			getPageList(1);
 			
  			$("#replyAddBtn").on("click", function() {
 				var replyer = $("#newReplyWriter").val();
@@ -34,7 +72,7 @@
 				
 				$.ajax({
 					type : 'post',
-					url : 'replies',
+					url : '/replies',
 					headers : {
 						"Content-type" : "application/json",
 						"X-HTTP-Method-Overrid" : "POST"
@@ -48,7 +86,8 @@
 					success : function(result) {
 						if (result == 'SUCCESS') {
 							alert('등록되었습니다.');
-							getAllList();
+// 							getAllList();
+							getPageList(replyPage);
 						}
 					}
 				})
@@ -99,7 +138,8 @@
 						if (result == 'SUCCESS') {
 							alert('삭제되었습니다.');
 							$("#modDiv").hide("slow");
-							getAllList();
+// 							getAllList();
+							getPageList(replyPage);
 						}
 					}
 				})
@@ -124,11 +164,17 @@
 						if (result == 'SUCCESS') {
 							alert('수정되었습니다.');
 							$("#modDiv").hide("slow");
-							getAllList();
-// 							getPageList();
+// 							getAllList();
+							getPageList(replyPage);
 						}
 					}
 				})
+			});
+			
+			$(".pagination").on("click", "li a", function(event) {
+				event.preventDefault();
+				replyPage = $(this).attr("href");
+				getPageList(replyPage);
 			});
 			
 		});
@@ -147,6 +193,21 @@
 			padding: 10px;
 			z-index: 1000;
 		}
+		
+		.pagination {
+		  width: 100%;
+		}
+		.pagination li{
+		  list-style: none;
+		  float: left; 
+		  padding: 3px; 
+		  border: 1px solid blue;
+		  margin:3px;  
+		}
+		.pagination li a{
+		  margin: 3px;
+		  text-decoration: none;  
+		}
 	</style>
 </head>
 <body>
@@ -164,6 +225,9 @@
 	
 	<ul id="replies">
 	
+	</ul>
+	
+	<ul class='pagination'>
 	</ul>
 	
 	<div id='modDiv' style="display: none;">
