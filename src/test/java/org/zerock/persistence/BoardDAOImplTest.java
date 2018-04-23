@@ -65,13 +65,13 @@ public class BoardDAOImplTest {
 		assertEquals(board, dbBoard);
 	}
 	
-	@Test
+/*	@Test
 	public void testDelete() {
 		boardDao.delete(1);
 		
 		BoardVO dbBoard = boardDao.read(1);
 		assertNull(dbBoard);
-	}
+	}*/
 	
 	@Test
 	public void testListAll() {
