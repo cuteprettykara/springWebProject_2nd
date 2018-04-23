@@ -35,7 +35,9 @@
 		$.getJSON(pageInfo, function(data) {
 			printData(data.list, $("#repliesDiv"), $('#template'));
 			printPaging(data.pageMaker, $(".pagination"));
-	//			$("#modifyModal").modal('hide');
+			
+			$("#modifyModal").modal('hide');	// error 발생함.???
+		
 		});
 	}
 	
@@ -123,6 +125,60 @@
 						getPage("/replies/" + bno + "/1");
 						replyerObj.val("");
 						replytextObj.val("");
+					}
+				}
+			})
+		});
+		
+		$(".timeline").on("click", ".replyLi", function() {
+			var reply = $(this);
+			
+			var rno = reply.attr("data-rno");
+			var replytext = reply.find(".timeline-body").text();
+			
+			$(".modal-title").html(rno);
+			$("#replytext").val(replytext);
+		});
+		
+		$("#replyModBtn").on("click", function() {
+			var rno = $(".modal-title").html();
+			var replytext = $("#replytext").val();
+			
+			$.ajax({
+				type : 'patch',
+				url : '/replies/' + rno,
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "PATCH"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					replytext : replytext
+				}),
+				success : function(result) {
+					if (result == 'SUCCESS') {
+						alert('수정되었습니다.');
+						getPage("/replies/" + bno + "/" + replyPage);
+					}
+				}
+			})
+		});
+		
+		$("#replyDelBtn").on("click", function() {
+			var rno = $(".modal-title").html();
+			
+			$.ajax({
+				type : 'delete',
+				url : '/replies/' + rno,
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				success : function(result) {
+					if (result == 'SUCCESS') {
+						alert('삭제되었습니다.');
+						getPage("/replies/" + bno + "/" + replyPage);
 					}
 				}
 			})
@@ -240,6 +296,27 @@
 		</div>
 		<!-- /.col -->
 	</div>
+
+<!-- Modal -->
+<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body" data-rno>
+        <p><input type="text" id="replytext" class="form-control"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+        <button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>    
 	
 </section>
 <!-- /.content -->
