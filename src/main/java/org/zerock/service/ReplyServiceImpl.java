@@ -41,7 +41,7 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public int getTotalReplyCount() {
-		return replyDao.getTotalReplyCount();
+	public int getTotalReplyCount(Integer bno) {
+		return replyDao.getTotalReplyCount(bno);
 	}
 }

@@ -98,7 +98,7 @@ public class ReplyController {
 			
 			pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(service.getTotalReplyCount());
+			pageMaker.setTotalCount(service.getTotalReplyCount(bno));
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("list", service.listReplyCriteria(bno, cri));

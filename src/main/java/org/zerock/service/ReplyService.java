@@ -16,6 +16,6 @@ public interface ReplyService {
 	
 	public List<ReplyVO> listReplyCriteria(Integer bno, Criteria cri);
 
-	public int getTotalReplyCount();
+	public int getTotalReplyCount(Integer bno);
 	
 }

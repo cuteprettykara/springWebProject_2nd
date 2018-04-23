@@ -16,5 +16,5 @@ public interface ReplyDAO {
 	
 	public List<ReplyVO> listCriteria(Integer bno, Criteria cri);
 	
-	public int getTotalReplyCount();
+	public int getTotalReplyCount(Integer bno);
 }
