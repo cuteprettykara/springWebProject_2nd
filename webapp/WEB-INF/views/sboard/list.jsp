@@ -82,7 +82,7 @@
 				</td>
 				<td>${board.writer}</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${board.regdate}"/></td>
-				<td>${board.viewcnt}</td>
+				<td style="text-align:center"><span class="badge bg-red">${board.viewcnt}</span></td>
 			</tr>
 		</c:forEach>
 		</table>

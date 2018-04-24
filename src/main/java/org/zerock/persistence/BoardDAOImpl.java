@@ -83,4 +83,9 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update(namespace + ".updateReplyCnt", paramMap);		
 	}
 
+	@Override
+	public void updateViewCnt(Integer bno) {
+		sqlSession.update(namespace + ".updateViewCnt", bno);
+	}
+
 }
