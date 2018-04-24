@@ -2,10 +2,12 @@ package org.zerock.service;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
 import org.zerock.domain.MessageVO;
 import org.zerock.persistence.MessageDAO;
 import org.zerock.persistence.PointDAO;
 
+@Service
 public class MessageServiceImpl implements MessageService {
 
 	@Inject
