@@ -28,4 +28,6 @@ public interface BoardDAO {
 	
 	public int getTotalSearchCount(SearchCriteria cri);
 	
+	public void updateReplyCnt(Integer bno, int amount);
+	
 }

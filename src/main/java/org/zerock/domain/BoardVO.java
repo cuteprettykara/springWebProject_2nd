@@ -8,6 +8,7 @@ public class BoardVO {
 	private String content;
 	private String writer;
 	private String viewcnt;
+	private String replycnt;
 	private Date regdate;
 	private Date updatedate;
 	
@@ -56,6 +57,12 @@ public class BoardVO {
 	}
 	public void setViewcnt(String viencnt) {
 		this.viewcnt = viencnt;
+	}
+	public String getReplycnt() {
+		return replycnt;
+	}
+	public void setReplycnt(String replycnt) {
+		this.replycnt = replycnt;
 	}
 	public Date getRegdate() {
 		return regdate;
@@ -115,9 +122,8 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", viencnt="
-				+ viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
+		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", viewcnt="
+				+ viewcnt + ", replycnt=" + replycnt + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
 	}
-	
 	
 }
