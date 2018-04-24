@@ -36,6 +36,7 @@
 			printData(data.list, $("#repliesDiv"), $('#template'));
 			printPaging(data.pageMaker, $(".pagination"));
 			
+			$("#replycntSmall").html("[" + data.pageMaker.totalCount + "]");
 			$("#modifyModal").modal('hide');	// error 발생함.???
 		
 		});
@@ -284,7 +285,7 @@
 			<ul class="timeline">
 				<!-- timeline time label -->
 				<li class="time-label" id="repliesDiv">
-					<span class="bg-green">Replies List </span>
+					<span class="bg-green">Replies List <small id="replycntSmall">[${boardVO.replycnt}]</small></span>
 				</li>
 			</ul>
 
