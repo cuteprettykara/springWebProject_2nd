@@ -132,4 +132,9 @@
 		   set viewcnt = viewcnt + 1
 		 where bno = #{bno}
 	</update>
+	
+	<insert id="addAttach">
+		insert into tbl_attach(fullName, bno) 
+		values (#{fullName), LAST_INSERT_ID())
+	</insert>
 </mapper>

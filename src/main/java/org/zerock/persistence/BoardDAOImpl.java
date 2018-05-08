@@ -88,4 +88,9 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update(namespace + ".updateViewCnt", bno);
 	}
 
+	@Override
+	public void addAttach(String fullName) {
+		sqlSession.insert(namespace+ ".addAttach", fullName);
+	}
+
 }

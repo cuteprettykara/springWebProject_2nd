@@ -12,6 +12,8 @@ public class BoardVO {
 	private Date regdate;
 	private Date updatedate;
 	
+	private String[] files;
+	
 	public BoardVO() {
 	}
 	
@@ -77,6 +79,14 @@ public class BoardVO {
 		this.updatedate = updatedate;
 	}
 	
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,5 +135,4 @@ public class BoardVO {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", viewcnt="
 				+ viewcnt + ", replycnt=" + replycnt + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
 	}
-	
 }

@@ -7,8 +7,6 @@
 <head>
 <%@ include file="../include/header.jsp"%>
 
-<!-- jQuery 3 -->
-<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- handlebars -->
 <script src="/resources/handlebars/handlebars-v4.0.11.js"></script>
 

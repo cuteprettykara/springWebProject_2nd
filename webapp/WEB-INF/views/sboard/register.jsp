@@ -6,6 +6,36 @@
 <html>
 <head>
 <%@ include file="../include/header.jsp"%>
+<!-- handlebars -->
+<script src="/resources/handlebars/handlebars-v4.0.11.js"></script>
+
+<script id="template" type="text/x-handlebars-template">
+<li>
+	<span class="mailbox-attachment-icon has-img">
+		<img src="{{imgsrc}}" alt="Attachment">
+  	</span>
+	<div class="mailbox-attachment-info">
+		<a href="{{getLink}}" class="mailbox-attachment-name">
+			{{fileName}}
+    	</a>
+		<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
+			<i class="fa fa-fw fa-remove"></i>
+		</a>
+	</div>
+</li>                
+</script> 
+
+<style>
+.fileDrop {
+  width: 80%;
+  height: 100px;
+  border: 1px dotted gray;
+  background-color: lightslategrey;
+  margin: auto;
+  
+}
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -24,7 +54,7 @@
 				
 				
 				
-<form role="form" method="post">
+<form id="registerForm" role="form" method="post">
 	<div class="box-body">
 		<div class="form-group">
 			<label for="exampleInputEmail1">Title</label> 
@@ -38,10 +68,19 @@
 			<label for="exampleInputEmail1">Writer</label> 
 			<input type="text" name="writer" class="form-control" placeholder="Enter Writer">
 		</div>
+		
+		<div class="form-group">
+			<label for="exampleInputEmail1">File DROP Here</label> 
+			<div class="fileDrop"></div>
+		</div>
 	</div>
 	<!-- /.box-body -->
 	
 	<div class="box-footer">
+		<div><hr></div>
+		
+		<ul class="mailbox-attachments clearfix uploadedList"></ul>
+		
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</div>
 	<!-- /.box-footer-->
