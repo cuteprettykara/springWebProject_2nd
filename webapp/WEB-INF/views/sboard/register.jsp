@@ -87,9 +87,7 @@ $(document).ready(function() {
 		
 		objThis.append(str);
 		
-		console.log(str);
-		
-// 		objThis.get(0).submit();
+ 		objThis.get(0).submit();
 	})
 });
 </script>
