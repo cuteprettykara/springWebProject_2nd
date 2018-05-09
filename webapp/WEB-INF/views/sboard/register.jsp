@@ -8,6 +8,8 @@
 <%@ include file="../include/header.jsp"%>
 <!-- handlebars -->
 <script src="/resources/handlebars/handlebars-v4.0.11.js"></script>
+<!-- upload -->
+<script src="/resources/js/upload.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
 <li>
@@ -35,6 +37,62 @@
   
 }
 </style>
+
+<script>
+$(document).ready(function() {
+	var template = Handlebars.compile($("#template").html());
+	
+ 	$(".fileDrop").on("dragenter dragover", function(e) {
+		e.preventDefault();
+	});
+	
+	$(".fileDrop").on("drop", function(e) {
+		e.preventDefault();
+		
+		var files = e.originalEvent.dataTransfer.files;
+		var file = files[0];
+		
+		console.log("file : " + file);
+		
+		var formData = new FormData();
+		formData.append("file", file);
+		
+		$.ajax({
+			url: '/uploadAjax',
+			type: 'POST',
+			data: formData,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				var fileInfo =  getFileInfo(data);
+				
+				var html = template(fileInfo);
+				
+				$(".uploadedList").append(html);
+			}
+		});
+	});
+	
+	$("#registerForm").submit(function(e) {
+		e.preventDefault();
+		
+		var objThis = $(this);
+		var str = "";
+		
+		$(".uploadedList .delbtn").each(function(index) {
+			str += "<input type='hidden' name='files[" + index + "]' value='" 
+			    + $(this).attr("href") + "'>";
+		});
+		
+		objThis.append(str);
+		
+		console.log(str);
+		
+// 		objThis.get(0).submit();
+	})
+});
+</script>
 
 </head>
 
