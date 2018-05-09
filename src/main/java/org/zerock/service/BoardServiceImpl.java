@@ -74,4 +74,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getTotalSearchCount(cri);
 	}
 
+	@Override
+	public List<String> getAttach(Integer bno) {
+		return boardDao.getAttach(bno);
+	}
+
 }

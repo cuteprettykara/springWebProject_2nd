@@ -9,6 +9,8 @@
 
 <!-- handlebars -->
 <script src="/resources/handlebars/handlebars-v4.0.11.js"></script>
+<!-- upload -->
+<script src="/resources/js/upload.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
 {{#each .}}
@@ -27,6 +29,19 @@
 	</li>
 {{/each}}
 </script>
+
+<script id="templateAttach" type="text/x-handlebars-template">
+<li data-src="{{fullName}}">
+	<span class="mailbox-attachment-icon has-img">
+		<img src="{{imgsrc}}" alt="Attachment">
+  	</span>
+	<div class="mailbox-attachment-info">
+		<a href="{{getLink}}" class="mailbox-attachment-name">
+			{{fileName}}
+    	</a>
+	</div>
+</li>                
+</script> 
 	
 <script type="text/javascript">
 	function getPage(pageInfo) {
@@ -69,8 +84,19 @@
 	$(document).ready(function() {
 		var bno=${boardVO.bno};
 		var replyPage = 1;
+		var template = Handlebars.compile($("#templateAttach").html());
 		
 		var formObj = $("form[role='form']");
+		
+		$.getJSON("/sboard/getAttach/" + bno, function(list) {
+			$(list).each(function() {
+				var fileInfo =  getFileInfo(this);
+				
+				var html = template(fileInfo);
+				
+				$(".uploadedList").append(html);
+			});
+		});
 		
 		$("#modify").on("click", function() {
 			formObj.attr("action", "/sboard/modifyPage");
@@ -240,6 +266,8 @@
 		</div>
 	</div>
 	<!-- /.box-body -->
+	
+	<ul class="mailbox-attachments clearfix uploadedList"></ul>
 	
 	<div class="box-footer">
 		<button type="button" class="btn btn-warning" id="modify">Modify</button>

@@ -24,4 +24,6 @@ public interface BoardService {
 	public List<BoardVO> listSearch(SearchCriteria cri);
 
 	public int getTotalSearchCount(SearchCriteria cri);
+	
+	public List<String> getAttach(Integer bno);
 }

@@ -33,4 +33,6 @@ public interface BoardDAO {
 	public void updateViewCnt(Integer bno);
 	
 	public void addAttach(String fullName);
+	
+	public List<String> getAttach(Integer bno);
 }
