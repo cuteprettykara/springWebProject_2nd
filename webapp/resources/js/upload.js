@@ -7,6 +7,7 @@ function checkIamgeType(fileName) {
 function getFileInfo(fullName) {
 	var fileName, imgsrc, getLink;
 	var fileLink;
+	var isImage = false;
 	
 	if (checkIamgeType(fullName)) {
 		imgsrc = "/displayFile?fileName=" + fullName;
@@ -16,6 +17,8 @@ function getFileInfo(fullName) {
 		var end = fullName.substr(14);
 		
 		getLink = "/displayFile?fileName=" + front + end;
+		
+		isImage = true;
 		
 	} else {
 		imgsrc = "/resources/dist/img/file.png";
@@ -30,6 +33,7 @@ function getFileInfo(fullName) {
 		fileName: fileName,
 		imgsrc: imgsrc,
 		getLink: getLink,
-		fullName: fullName
+		fullName: fullName,
+		isImage : isImage
 	};
 }

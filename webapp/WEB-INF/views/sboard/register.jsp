@@ -17,7 +17,12 @@
 		<img src="{{imgsrc}}" alt="Attachment">
   	</span>
 	<div class="mailbox-attachment-info">
+	{{#if isImage}}
+		<a href="{{getLink}}" class="mailbox-attachment-name" target="_blank">
+	{{else}}
 		<a href="{{getLink}}" class="mailbox-attachment-name">
+	{{/if}}
+
 			{{fileName}}
     	</a>
 		<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
@@ -88,6 +93,25 @@ $(document).ready(function() {
 		objThis.append(str);
 		
  		objThis.get(0).submit();
+	});
+	
+	$(".uploadedList").on("click", "i", function(e) {
+		e.preventDefault();
+		
+		var objThis = $(this);
+		
+		$.ajax({
+			url: "/deleteFile",
+			type: "post",
+			data: {fileName: $(this).parent().attr("href")},
+			dataType: "text",
+			success: function(result) {
+				if (result == "deleted") {
+// 					objThis.parent().parent().parent().remove();
+					objThis.parents("li").remove();
+				}
+			}
+		});
 	})
 });
 </script>
