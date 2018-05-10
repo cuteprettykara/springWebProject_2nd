@@ -1,4 +1,4 @@
-function checkIamgeType(fileName) {
+function checkImageType(fileName) {
 	var pattern = /jpg|gif|png|jpeg/i;
 	
 	return fileName.match(pattern);
@@ -9,7 +9,7 @@ function getFileInfo(fullName) {
 	var fileLink;
 	var isImage = false;
 	
-	if (checkIamgeType(fullName)) {
+	if (checkImageType(fullName)) {
 		imgsrc = "/displayFile?fileName=" + fullName;
 		fileLink = fullName.substr(14);
 		
