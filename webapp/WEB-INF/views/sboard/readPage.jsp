@@ -238,7 +238,7 @@
 			getPage("/replies/" + bno + "/" + replyPage);
 		});
 		
-		$(".uploadedList").on("click", ".mailbox-attachment-info a", function(e) {
+		$(".uploadedList").on("click", ".mailbox-attachment-name", function(e) {
 			var fileLink = $(this).attr("href");
 			
 			if (checkImageType(fileLink)) {
@@ -254,7 +254,7 @@
 			}
 		});
 		
-		$("#popup_img").on("click", function() {
+		$(".popup").on("click", function() {
 			$(".popup").hide("slow");
 		})
 	});
