@@ -138,10 +138,24 @@
 		values (#{fullName}, LAST_INSERT_ID())
 	</insert>
 	
+	<insert id="addAttachWithBno">
+		insert into tbl_attach(fullName, bno) 
+		values (#{fullName}, #{bno})
+	</insert>
+
 	<select id="getAttach" resultType="string">
 		select fullName
 		  from tbl_attach
 	 	 where bno = #{bno}
 	 	 order by regdate	  
 	</select>
+	
+	<delete id="deleteAllAttach">
+		delete from tbl_attach where bno = #{bno}
+	</delete>
+	
+	<delete id="deleteAttach">
+		delete from tbl_attach where bno = #{bno} and fullName = #{fullName}
+	</delete>
+	
 </mapper>

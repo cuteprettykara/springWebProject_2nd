@@ -34,7 +34,7 @@
  	} 
 </style>
 
-<script id="template" type="text/x-handlebars-template">
+<script id="templateAttach" type="text/x-handlebars-template">
 <li>
 	<span class="mailbox-attachment-icon has-img">
 		<img src="{{imgsrc}}" alt="Attachment">
@@ -52,7 +52,7 @@
 
 <script>
 $(document).ready(function() {
-	var template = Handlebars.compile($("#template").html());
+	var template = Handlebars.compile($("#templateAttach").html());
 	
  	$(".fileDrop").on("dragenter dragover", function(e) {
 		e.preventDefault();

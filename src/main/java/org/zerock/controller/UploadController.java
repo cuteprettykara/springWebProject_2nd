@@ -2,17 +2,15 @@ package org.zerock.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.service.BoardService;
 import org.zerock.util.MediaUtils;
 import org.zerock.util.UploadFileUtils;
 
@@ -32,11 +31,11 @@ public class UploadController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-	@Autowired
-	ServletContext context;
-	
 	private static final String UPLOAD_DIRECTORY = "upload";
 	private String uploadPath = null;
+	
+	@Inject
+	private BoardService service;
 	
 	public UploadController() {
 //		uploadPath = context.getRealPath("/") + UPLOAD_DIRECTORY;
@@ -88,6 +87,17 @@ public class UploadController {
 		return new ResponseEntity<>(savedName, HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value="/uploadAjax_bno", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjaxBno(MultipartFile file, Integer bno) throws Exception {
+		logger.info("bno: {}", bno);
+		
+		String savedName= UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+		
+		service.addAttach(savedName, bno);
+		
+		return new ResponseEntity<>(savedName, HttpStatus.CREATED);
+	}
+	
 	@ResponseBody
 	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
@@ -127,18 +137,17 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		MediaType mType = MediaUtils.getMediaType(formatName);
+		UploadFileUtils.deleteFile(uploadPath, fileName);
 		
-		if (mType != null) {
-			String front = fileName.substring(0, 12);
-			String end = fileName.substring(14);
-			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-		}
+		return new ResponseEntity<>("deleted", HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteFile_bno", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFileWithBno(String fileName, Integer bno) {
+		UploadFileUtils.deleteFile(uploadPath, fileName);
 		
-		String temp = uploadPath + fileName.replace('/', File.separatorChar);
-		logger.info(temp);
-		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		service.deleteAttach(fileName, bno);
 		
 		return new ResponseEntity<>("deleted", HttpStatus.OK);
 	}

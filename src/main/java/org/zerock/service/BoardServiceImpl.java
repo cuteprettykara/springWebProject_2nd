@@ -79,4 +79,14 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getAttach(bno);
 	}
 
+	@Override
+	public void addAttach(String fullName, Integer bno) {
+		boardDao.addAttach(fullName, bno);
+	}
+
+	@Override
+	public void deleteAttach(String fullName, Integer bno) {
+		boardDao.deleteAttach(fullName, bno);
+	}
+
 }

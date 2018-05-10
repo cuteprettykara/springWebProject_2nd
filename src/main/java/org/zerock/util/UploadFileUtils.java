@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
@@ -88,5 +89,20 @@ public class UploadFileUtils {
 	private static String makeIcon(String uploadPath, String path, String fileName) {
 		String iconName = uploadPath + path + File.separator + fileName;
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
+	}
+	
+	public static void deleteFile(String uploadPath, String fileName) {
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		
+		if (mType != null) {
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+		}
+		
+		String temp = uploadPath + fileName.replace('/', File.separatorChar);
+		logger.info(temp);
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 	}
 }

@@ -26,4 +26,8 @@ public interface BoardService {
 	public int getTotalSearchCount(SearchCriteria cri);
 	
 	public List<String> getAttach(Integer bno);
+	
+	public void addAttach(String fullName, Integer bno);
+	
+	public void deleteAttach(String fullName, Integer bno);
 }

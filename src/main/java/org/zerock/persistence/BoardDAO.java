@@ -34,5 +34,12 @@ public interface BoardDAO {
 	
 	public void addAttach(String fullName);
 	
+	public void addAttach(String fullName, Integer bno);
+
 	public List<String> getAttach(Integer bno);
+	
+	public void deleteAttach(Integer bno);
+	
+	public void deleteAttach(String fullName, Integer bno);
+	
 }
