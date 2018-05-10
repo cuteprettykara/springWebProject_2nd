@@ -11,18 +11,36 @@
 <!-- upload -->
 <script src="/resources/js/upload.js"></script>
 
+<style type="text/css">
+	.fileDrop {
+	  width: 80%;
+	  height: 100px;
+	  border: 1px dotted gray;
+	  background-color: lightslategrey;
+	  margin: auto;
+	  
+	}
+
+	.popup {position: absolute;}
+	.back { background-color: gray; opacity:0.5; width: 100%; height: 100%; overflow:hidden;  z-index:1101;}
+	.front { 
+   		z-index:1110; opacity:1; boarder:1px; margin: auto; 
+  	}
+ 	.show{
+  		position:relative;
+   		max-width: 1200px; 
+   		max-height: 800px; 
+   		overflow: auto;       
+ 	} 
+</style>
+
 <script id="template" type="text/x-handlebars-template">
 <li>
 	<span class="mailbox-attachment-icon has-img">
 		<img src="{{imgsrc}}" alt="Attachment">
   	</span>
 	<div class="mailbox-attachment-info">
-	{{#if isImage}}
-		<a href="{{getLink}}" class="mailbox-attachment-name" target="_blank">
-	{{else}}
 		<a href="{{getLink}}" class="mailbox-attachment-name">
-	{{/if}}
-
 			{{fileName}}
     	</a>
 		<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
@@ -31,17 +49,6 @@
 	</div>
 </li>                
 </script> 
-
-<style>
-.fileDrop {
-  width: 80%;
-  height: 100px;
-  border: 1px dotted gray;
-  background-color: lightslategrey;
-  margin: auto;
-  
-}
-</style>
 
 <script>
 $(document).ready(function() {
@@ -112,6 +119,26 @@ $(document).ready(function() {
 				}
 			}
 		});
+	});
+	
+	$(".uploadedList").on("click", ".mailbox-attachment-name", function(e) {
+		var fileLink = $(this).attr("href");
+		
+		if (checkImageType(fileLink)) {
+			e.preventDefault();
+			
+			var imgTag = $("#popup_img");
+			imgTag.attr("src", fileLink);
+			
+			console.log(imgTag.attr("src"));
+			
+			$(".popup").show("slow");
+				imgTag.addClass("show");
+		}
+	});
+	
+	$(".popup").on("click", function() {
+		$(".popup").hide("slow");
 	})
 });
 </script>
@@ -120,6 +147,13 @@ $(document).ready(function() {
 
 <body class="hold-transition skin-blue sidebar-mini">
 <%@ include file="../include/navigation.jsp"%>
+
+<!-- Image Display -->
+<div class="popup back" style="display: none;"></div>
+
+<div id="popup_front" class="popup front" style="display: none;">
+	<img id="popup_img">
+</div>
 
 <!-- Main content -->
 <section class="content">

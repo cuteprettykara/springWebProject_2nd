@@ -33,7 +33,6 @@ function getFileInfo(fullName) {
 		fileName: fileName,
 		imgsrc: imgsrc,
 		getLink: getLink,
-		fullName: fullName,
-		isImage : isImage
+		fullName: fullName
 	};
 }
