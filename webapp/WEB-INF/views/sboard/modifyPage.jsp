@@ -68,22 +68,6 @@
 					      + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 		});
 		
-		$("#registerForm").submit(function(e) {
-			e.preventDefault();
-			
-			var objThis = $(this);
-			var str = "";
-			
-			$(".uploadedList .delbtn").each(function(index) {
-				str += "<input type='hidden' name='files[" + index + "]' value='" 
-				    + $(this).attr("href") + "'>";
-			});
-			
-			objThis.append(str);
-			
-	 		objThis.get(0).submit();
-		});
-		
 		$.getJSON("/sboard/getAttach/" + bno, function(list) {
 			$(list).each(function() {
 				var fileInfo =  getFileInfo(this);
@@ -195,7 +179,7 @@
 				
 				
 				
-<form id="registerForm" role="form" method="post">
+<form role="form" method="post">
 	<input type="hidden" name="bno" value="${boardVO.bno}" />
 	<input type="hidden" name="page" value="${cri.page}" />	
 	<input type="hidden" name="perPageNum" value="${cri.perPageNum}" />
