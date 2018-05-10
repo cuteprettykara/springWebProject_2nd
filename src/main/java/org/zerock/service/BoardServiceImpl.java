@@ -44,8 +44,10 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.update(board);
 	}
 
+	@Transactional
 	@Override
 	public void remove(Integer bno) {
+		boardDao.deleteAttach(bno);
 		boardDao.delete(bno);
 	}
 
