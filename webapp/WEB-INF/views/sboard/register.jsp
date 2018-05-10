@@ -102,7 +102,7 @@ $(document).ready(function() {
  		objThis.get(0).submit();
 	});
 	
-	$(".uploadedList").on("click", "i", function(e) {
+	$(".uploadedList").on("click", ".delbtn", function(e) {
 		e.preventDefault();
 		
 		var objThis = $(this);
@@ -110,11 +110,10 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/deleteFile",
 			type: "post",
-			data: {fileName: $(this).parent().attr("href")},
+			data: {fileName: $(this).attr("href")},
 			dataType: "text",
 			success: function(result) {
 				if (result == "deleted") {
-// 					objThis.parent().parent().parent().remove();
 					objThis.parents("li").remove();
 				}
 			}

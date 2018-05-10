@@ -127,7 +127,7 @@
 			});
 		});
 		
-		$(".uploadedList").on("click", "i", function(e) {
+		$(".uploadedList").on("click", ".delbtn", function(e) {
 			e.preventDefault();
 			
 			var objThis = $(this);
@@ -136,13 +136,12 @@
 				url: "/deleteFile_bno",
 				type: "post",
 				data: {
-					fileName: $(this).parent().attr("href"), 
+					fileName: $(this).attr("href"), 
 					bno: bno
 				},
 				dataType: "text",
 				success: function(result) {
 					if (result == "deleted") {
-//	 					objThis.parent().parent().parent().remove();
 						objThis.parents("li").remove();
 					}
 				}
