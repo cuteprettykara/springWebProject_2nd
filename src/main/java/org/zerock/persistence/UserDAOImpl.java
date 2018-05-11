@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.UserVO;
-import org.zerock.dto.UserDTO;
+import org.zerock.dto.LoginDTO;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	private static final String namespace = "org.zerock.mapper.userMapper";
 	
 	@Override
-	public UserVO login(UserDTO dto) {
+	public UserVO login(LoginDTO dto) {
 		return sqlSession.selectOne(namespace + ".login", dto);
 	}
 

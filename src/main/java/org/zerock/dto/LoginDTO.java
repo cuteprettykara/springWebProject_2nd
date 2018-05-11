@@ -1,6 +1,6 @@
 package org.zerock.dto;
 
-public class UserDTO {
+public class LoginDTO {
 	private String uid;
 	private String upw;
 	private boolean userCookie;

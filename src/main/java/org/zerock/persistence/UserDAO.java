@@ -1,8 +1,8 @@
 package org.zerock.persistence;
 
 import org.zerock.domain.UserVO;
-import org.zerock.dto.UserDTO;
+import org.zerock.dto.LoginDTO;
 
 public interface UserDAO {
-	public UserVO login(UserDTO dto);
+	public UserVO login(LoginDTO dto);
 }

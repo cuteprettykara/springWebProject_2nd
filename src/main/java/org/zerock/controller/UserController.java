@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.zerock.domain.UserVO;
-import org.zerock.dto.UserDTO;
+import org.zerock.dto.LoginDTO;
 import org.zerock.service.UserService;
 
 @Controller
@@ -22,12 +22,12 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void login(UserDTO dto) {
+	public void login(LoginDTO dto) {
 		
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public void loginPOST(UserDTO dto, Model model) {
+	public void loginPOST(LoginDTO dto, Model model) {
 		logger.info("dto : {}", dto );
 		UserVO vo = service.login(dto);
 		

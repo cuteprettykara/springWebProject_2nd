@@ -1,8 +1,8 @@
 package org.zerock.service;
 
 import org.zerock.domain.UserVO;
-import org.zerock.dto.UserDTO;
+import org.zerock.dto.LoginDTO;
 
 public interface UserService {
-	public UserVO login(UserDTO dto);
+	public UserVO login(LoginDTO dto);
 }
