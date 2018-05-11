@@ -33,12 +33,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		
+		HttpSession session = request.getSession();
 		Object userVO = modelAndView.getModel().get("userVO");
 		
 		if (userVO != null) {
 			logger.info("new login success.");
-			request.getSession().setAttribute(LOGIN, userVO);
-			response.sendRedirect("/");
+			session.setAttribute(LOGIN, userVO);
+			
+			Object dest = session.getAttribute("dest");
+			
+			response.sendRedirect(dest == null ? "/" : (String) dest);
 		}
 	}
 }
