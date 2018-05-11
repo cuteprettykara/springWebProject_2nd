@@ -188,20 +188,20 @@
 			
 	<div class="box-body">
 		<div class="form-group">
-			<label for="exampleInputEmail1">Title</label> 
-			<input type="text" name='title' class="form-control" placeholder="Enter Title" value="${boardVO.title}">
+			<label for="title">Title</label> 
+			<input type="text" id='title' name='title' class="form-control" placeholder="Enter Title" value="${boardVO.title}">
 		</div>
 		<div class="form-group">
-			<label for="exampleInputPassword1">Content</label>
-			<textarea class="form-control" name="content" rows="3" placeholder="Enter ...">${boardVO.content}</textarea>
+			<label for="content">Content</label>
+			<textarea class="form-control" id='content' name="content" rows="3" placeholder="Enter ...">${boardVO.content}</textarea>
 		</div>
 		<div class="form-group">
-			<label for="exampleInputEmail1">Writer</label> 
-			<input type="text" name="writer" class="form-control" placeholder="Enter Writer" readonly="readonly" value="${boardVO.writer}">
+			<label for="writer">Writer</label> 
+			<input type="text" id='writer' name="writer" class="form-control" placeholder="Enter Writer" readonly="readonly" value="${boardVO.writer}">
 		</div>
 		<div class="form-group">
-			<label for="exampleInputEmail1">File DROP Here</label> 
-			<div class="fileDrop"></div>
+			<label for="fileDrop">File DROP Here</label> 
+			<div class="fileDrop" id='fileDrop'></div>
 		</div>
 	</div>
 	<!-- /.box-body -->

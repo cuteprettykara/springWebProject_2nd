@@ -315,16 +315,16 @@
 			
 	<div class="box-body">
 		<div class="form-group">
-			<label for="exampleInputEmail1">Title</label> 
-			<input type="text" name='title' class="form-control" placeholder="Enter Title" readonly="readonly" value="${boardVO.title}">
+			<label for="title">Title</label> 
+			<input type="text" id='title' name='title' class="form-control" placeholder="Enter Title" readonly="readonly" value="${boardVO.title}">
 		</div>
 		<div class="form-group">
-			<label for="exampleInputPassword1">Content</label>
-			<textarea class="form-control" name="content" rows="3" placeholder="Enter ..." readonly="readonly">${boardVO.content}</textarea>
+			<label for="content">Content</label>
+			<textarea class="form-control" id='content' name="content" rows="3" placeholder="Enter ..." readonly="readonly">${boardVO.content}</textarea>
 		</div>
 		<div class="form-group">
-			<label for="exampleInputEmail1">Writer</label> 
-			<input type="text" name="writer" class="form-control" placeholder="Enter Writer" readonly="readonly" value="${boardVO.writer}">
+			<label for="writer">Writer</label> 
+			<input type="text" id='writer' name="writer" class="form-control" placeholder="Enter Writer" readonly="readonly" value="${boardVO.writer}">
 		</div>
 	</div>
 	<!-- /.box-body -->
