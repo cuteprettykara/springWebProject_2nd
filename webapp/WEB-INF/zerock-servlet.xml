@@ -45,6 +45,7 @@
 	/>
 	
 	<beans:bean id="sampleInterceptor" class="org.zerock.interceptor.SampleInterceptor"/>
+	<beans:bean id="loginInterceptor" class="org.zerock.interceptor.LoginInterceptor"/>
 	
 	<interceptors>
 		<interceptor>
@@ -52,5 +53,9 @@
 			<mapping path="/doB"/>
 			<beans:ref bean="sampleInterceptor"/>
 		</interceptor>	
+		<interceptor>
+			<mapping path="/user/loginPost"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
 	</interceptors>
 </beans:beans>
