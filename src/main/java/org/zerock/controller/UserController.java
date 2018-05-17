@@ -1,6 +1,9 @@
 package org.zerock.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +30,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public void loginPOST(LoginDTO dto, Model model) {
+	public void loginPOST(LoginDTO dto, HttpSession session, Model model) {
 		logger.info("dto : {}", dto );
 		UserVO vo = service.login(dto);
 		
 		if (vo == null) return;
 		
 		model.addAttribute("userVO", vo);
+		
+		if (dto.isUseCookie()) {
+			int amount = 60 * 5;
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+			service.keepLogin(vo.getUid(), session.getId(), sessionLimit);
+		}
 	}
 }

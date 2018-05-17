@@ -1,5 +1,9 @@
 package org.zerock.persistence;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +22,21 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserVO login(LoginDTO dto) {
 		return sqlSession.selectOne(namespace + ".login", dto);
+	}
+
+	@Override
+	public void keepLogin(String uid, String sessionId, Date next) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("uid", uid);
+		paramMap.put("sessionId", sessionId);
+		paramMap.put("next", next);
+		
+		sqlSession.update(namespace + ".keepLogin", paramMap);
+	}
+
+	@Override
+	public UserVO checkUserWithSessionKey(String value) {
+		return sqlSession.selectOne(namespace + ".checkUserWithSessionKey", value);
 	}
 
 }

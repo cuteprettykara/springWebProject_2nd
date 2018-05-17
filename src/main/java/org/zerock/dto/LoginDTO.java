@@ -3,7 +3,7 @@ package org.zerock.dto;
 public class LoginDTO {
 	private String uid;
 	private String upw;
-	private boolean userCookie;
+	private boolean useCookie;
 	
 	public String getUid() {
 		return uid;
@@ -17,15 +17,15 @@ public class LoginDTO {
 	public void setUpw(String upw) {
 		this.upw = upw;
 	}
-	public boolean isUserCookie() {
-		return userCookie;
+	public boolean isUseCookie() {
+		return useCookie;
 	}
-	public void setUserCookie(boolean userCookie) {
-		this.userCookie = userCookie;
+	public void setUseCookie(boolean useCookie) {
+		this.useCookie = useCookie;
 	}
 	
 	@Override
 	public String toString() {
-		return "UserDTO [uid=" + uid + ", upw=" + upw + ", userCookie=" + userCookie + "]";
+		return "UserDTO [uid=" + uid + ", upw=" + upw + ", userCookie=" + useCookie + "]";
 	}
 }
